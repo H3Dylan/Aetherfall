@@ -1,5 +1,5 @@
 import random
-from EventsImpl import RestEvent, CombatEvent, ChestEvent
+from Events.EventsImpl import RestEvent, CombatEvent, ChestEvent
 
 
 class EventFactory:
@@ -11,10 +11,10 @@ class EventFactory:
 
         if z == "forest":
             if random.random() < 0.6:
-                return CombatEvent(random.choice(["Goblin", "Wolf"]))
+                return CombatEvent(random.choice(["goblin", "wolf"]))
             return ChestEvent()
 
         if z == "dungeon":
-            return CombatEvent(random.choice(["Skeleton", "Dark Knight"]))
+            return CombatEvent(random.choice(["skeleton", "dark knight"]))
 
         return RestEvent()

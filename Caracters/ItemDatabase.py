@@ -1,4 +1,4 @@
-from item import Weapon, Armor, Consumable
+from Caracters.item import Weapon, Armor, Consumable
 
 class Epee(Weapon):
     def __init__(self):
@@ -47,6 +47,8 @@ class ItemFactory:
             return PotionSoin()
         elif item_type == "grenade":
             return Grenade()
+        elif item_type == "slip":
+            return Slip()
         else:
             print("Type d'item inconnu")
             return None

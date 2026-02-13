@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from ItemDatabase import ItemFactory
+from Caracters.ItemDatabase import ItemFactory
 class ClassPlayer(ABC):
     def __init__(self, name, hp, atk, intell, vit, def_phys, def_mag, crit):
         self.name = name
@@ -34,7 +34,7 @@ class Guerrier(ClassPlayer):
 
 class Mage(ClassPlayer):
     def __init__(self):
-        super().__init__("Mage", 80, 6, 20, 4, 5, 10, 5)
+        super().__init__("Mage", 80, 6, 20, 4, 0, 10, 5)
     def skill_one(self, player):
         print("Boule de feu")
         return player.stats["INT"] + 15
@@ -70,20 +70,20 @@ class FactoryClass:
     def get_starting_weapon(self, class_type):
         class_type = class_type.lower()
         if class_type == "guerrier":
-            return "epee"
+            return ItemFactory().create_item("hache")
         elif class_type == "mage":
-            return "baton"
+            return ItemFactory().create_item("baton")
         elif class_type == "voleur":
-            return "epee"
+            return ItemFactory().create_item("epee")
         else:
             raise ValueError(f"Type de classe inconnu : {class_type}")
     def get_starting_armor(self, class_type):
         class_type = class_type.lower()
         if class_type == "guerrier":
-            return "armure_fer"
+            return ItemFactory().create_item("armure_fer")
         elif class_type == "mage":
-            return "slip"
+            return ItemFactory().create_item("slip")
         elif class_type == "voleur":
-            return "armure_cuir"
+            return ItemFactory().create_item("armure_cuir")
         else:
             raise ValueError(f"Type de classe inconnu : {class_type}")
