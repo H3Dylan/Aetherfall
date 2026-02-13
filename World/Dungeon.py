@@ -1,4 +1,4 @@
-from Zone import Zone
+from World.Zone import Zone
 
 class Dungeon(Zone):
     def __init__(self, event_factory=None):

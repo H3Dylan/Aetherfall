@@ -33,7 +33,7 @@ class Guerrier(ClassPlayer):
 
 class Mage(ClassPlayer):
     def __init__(self):
-        super().__init__("Mage", 80, 6, 20, 4, 5, 10, 5)
+        super().__init__("Mage", 80, 6, 20, 4, 0, 10, 5)
     def skill_one(self, player):
         print("Boule de feu")
         return player.stats["INT"] + 15

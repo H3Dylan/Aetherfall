@@ -2,14 +2,13 @@ from Entities.Character import Character
 import random
 
 class Enemy(Character):
-    def __init__(self, name, hp, stats, enemy_type):
-        super().__init__(name, hp, stats)
-        self.type = enemy_type
+    def __init__(self, name, hp, strength, defense, type_enemy):
+        super().__init__(name, hp, strength, defense)
+        self.type = type_enemy
 
-    def choose_action(self, target):
-        if random.random() < 0.8:
-            damage = self.stats.get('str', 5)
-            return ("attack", damage)
+    def choose_action(self):
+        chance = random.randint(1, 10)
+        if chance <= 8:
+            return "Attack"
         else:
-            return ("wait", 0)
-    
+            return "Defend"
