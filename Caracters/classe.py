@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from ItemDatabase import ItemFactory
 class ClassPlayer(ABC):
     def __init__(self, name, hp, atk, intell, vit, def_phys, def_mag, crit):
         self.name = name
@@ -66,4 +67,23 @@ class FactoryClass:
             return Voleur()
         else:
             raise ValueError(f"Type de classe inconnu : {class_type}")
-    
+    def get_starting_weapon(self, class_type):
+        class_type = class_type.lower()
+        if class_type == "guerrier":
+            return "epee"
+        elif class_type == "mage":
+            return "baton"
+        elif class_type == "voleur":
+            return "epee"
+        else:
+            raise ValueError(f"Type de classe inconnu : {class_type}")
+    def get_starting_armor(self, class_type):
+        class_type = class_type.lower()
+        if class_type == "guerrier":
+            return "armure_fer"
+        elif class_type == "mage":
+            return "slip"
+        elif class_type == "voleur":
+            return "armure_cuir"
+        else:
+            raise ValueError(f"Type de classe inconnu : {class_type}")

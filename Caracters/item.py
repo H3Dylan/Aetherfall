@@ -17,7 +17,6 @@ class Armor(Item):
         super().__init__(name, description)
         self.defense = defense
 
-
 class Consumable(Item):
     def __init__(self, name, description, value, effect_type):
         super().__init__(name, description)
@@ -29,11 +28,11 @@ class Consumable(Item):
             player.hp += self.value
             if player.hp > player.max_hp:
                 player.hp = player.max_hp
-            print("vous récupez {self.value} HP")
+            print(f"vous récupez {self.value} HP")
 
         elif self.effect_type == "damage":
-            print(" vous subissez {self.value} degat")
             player.hp -= self.value
+            print(f" vous subissez {self.value} degat")
 
         else:
             print("item pas connue")
