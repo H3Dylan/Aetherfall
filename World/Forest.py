@@ -1,4 +1,3 @@
-# World/forest.py
 from Zone import Zone
 
 class Forest(Zone):
