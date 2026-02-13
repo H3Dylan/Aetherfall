@@ -3,44 +3,37 @@ class Item:
         self.name = name
         self.description = description
 
+    def __str__(self):
+        return self.name
+
 class Weapon(Item):
-    def __init__(self, name, description, type, damage):
+    def __init__(self, name, description, stat_type, damage):
         super().__init__(name, description)
-        self.type = type
+        self.stat_type = stat_type 
         self.damage = damage
 
-class armor(Item):
-    def __init__(self, name, description, type, defense):
+class Armor(Item):
+    def __init__(self, name, description, defense):
         super().__init__(name, description)
-        self.type = type
         self.defense = defense
 
-class Consumable(Item):
-    def __init__(self, name, description, value, effect):
-        super().__init__(name, description, value)
-        self.effect = effect
-    def use(self): 
-        return f"Vous utilisez {self.name} et {self.effect}"
 
-class ContextItem:
-    def __init__(self, strategy):
-        self.strategy = strategy
-    def use(self,strategy):
-        print("vous utilisez : " + strategy.name)
-        return strategy.use()
-    def set_weapon_strategy(self, strategy):
-        self.strategy = strategy
-        print("vous avez équiper l'arme : " + self.strategy.name)
-    def set_armor_strategy(self, strategy):
-        self.strategy = strategy
-        print("vous avez équiper l'armure : " + self.strategy.name)
-    
-arme = Weapon("épée", "une épée en acier", "ATK", 10)
-armure = armor("armure en cuir", "une armure légère en cuir", "DEF", 5)
-consommable = Consumable("potion de soin", "une potion qui soigne 20 points de vie", 50, "soigne 20 PV")
-arme_context = ContextItem(arme)
-armure_context = ContextItem(armure)
-consommable_context = ContextItem(consommable)
-arme_context.set_weapon_strategy(arme)
-armure_context.set_armor_strategy(armure)
-consommable_context.use(consommable)
+class Consumable(Item):
+    def __init__(self, name, description, value, effect_type):
+        super().__init__(name, description)
+        self.value = value
+        self.effect_type = effect_type
+
+    def use(self, player):
+        if self.effect_type == "heal":
+            player.hp += self.value
+            if player.hp > player.max_hp:
+                player.hp = player.max_hp
+            print("vous récupez {self.value} HP")
+
+        elif self.effect_type == "damage":
+            print(" vous subissez {self.value} degat")
+            player.hp -= self.value
+
+        else:
+            print("item pas connue")
