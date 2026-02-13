@@ -12,3 +12,4 @@ class Enemy(Character):
             return ("attack", damage)
         else:
             return ("wait", 0)
+    

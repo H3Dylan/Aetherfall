@@ -1,6 +1,5 @@
-# events/event_factory.py
 import random
-from Events_impl import RestEvent, CombatEvent, ChestEvent
+from EventsImpl import RestEvent, CombatEvent, ChestEvent
 
 
 class EventFactory:
