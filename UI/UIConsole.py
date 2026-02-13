@@ -19,5 +19,15 @@ class ConsoleUI(UIObserver):
             for item in player.inventory:
                 print(f"- {item.name} ({item.__class__.__name__})")
         print("------------------")
+        print("---------- OBJET EQUIPE --------")
+        if player.equipped_weapon:
+            print(f"Arme : {player.equipped_weapon.name} (Dégâts: {player.equipped_weapon.damage})")
+        else:
+            print("Arme : Aucune")
+        if player.equipped_armor:
+            print(f"Armure : {player.equipped_armor.name} (Défense: {player.equipped_armor.defense})")
+        else:
+            print("Armure : Aucune")
+        print("--------------)")
     def ask_input(self, prompt):
         return input(f"{prompt} > ")

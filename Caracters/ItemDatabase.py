@@ -27,6 +27,9 @@ class PotionSoin(Consumable):
 class Grenade(Consumable):
     def __init__(self):
         super().__init__("grenade", "SA VA PETER", 40, "damage")
+class KeyDungeon(Consumable):
+    def __init__(self):
+        super().__init__("clé du donjon", "une clé qui ouvre la porte du donjon", 0, "unlock")
 class ItemFactory:
     @staticmethod
     def create_item(item_type):
@@ -49,6 +52,8 @@ class ItemFactory:
             return Grenade()
         elif item_type == "slip":
             return Slip()
+        elif item_type == "keydungeon":
+            return KeyDungeon()
         else:
             print("Type d'item inconnu")
             return None
