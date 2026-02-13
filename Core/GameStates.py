@@ -1,4 +1,4 @@
-from Combat.BattleCommand import AttackCommand, DefendCommand
+from Combat.BattleCommand import AttackCommand, DefendCommand, SkillCommand
 
 class ExplorationState:
     def __init__(self, game_engine):
@@ -67,15 +67,23 @@ class CombatState:
             return
             
         if self.combat_system.enemy.is_dead():
-            print(f"--- VICTOIRE ! {self.combat_system.enemy.name} a été vaincu. ---")
-            input("Appuyez sur Entrée pour continuer...")
-            self.engine.change_state(ExplorationState(self.engine))
+            print(f"--- VICTOIRE FINALE ! {self.combat_system.enemy.name} est tombé ! ---")
+            
+            if self.combat_system.enemy.type == "Boss":
+                print("Félicitations ! Vous avez libéré Aetherfall de l'emprise du vide.")
+                print("FIN DU JEU")
+                self.engine.running = False
+            else:
+                print("Appuyez sur Entrée pour continuer...")
+                self.engine.change_state(ExplorationState(self.engine))
             return
         
         print(f"\n--- TOUR DE {self.engine.player.name} ---")
         print(f"PV Joueur: {self.engine.player.hp}/{self.engine.player.max_hp} | Ennemi: {self.combat_system.enemy.hp}")
         print("1. Attaquer")
         print("2. Défendre")
+        print("3. Compétence Spéciale 1")
+        print("4. Compétence Spéciale 2")
 
         choice = input("Votre choix > ")
 
@@ -84,6 +92,10 @@ class CombatState:
             command = AttackCommand()
         elif choice == "2":
             command = DefendCommand()
+        elif choice == "3":
+            command = SkillCommand(1)
+        elif choice == "4":
+            command = SkillCommand(2)
         else:
             print("Choix invalide, vous perdez votre tour !")
             command = DefendCommand()

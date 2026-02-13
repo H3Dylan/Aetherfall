@@ -22,7 +22,7 @@ class EntityFactory:
             return Enemy("Chevalier Noir", 80, 10, 5, "Elite")
 
         elif t == "boss":
-            return Enemy("Gardien du Donjon", 200, 15, 8, "Boss")
+            return Enemy("LE GARDIEN DU VIDE (BOSS)", 200, 15, 8, "Boss")
             
         else:
             print(f"[DEBUG FACTORY] ERREUR : '{t}' inconnu !")
