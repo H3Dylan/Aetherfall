@@ -34,5 +34,9 @@ class Consumable(Item):
             player.hp -= self.value
             print(f" vous subissez {self.value} degat")
 
+        elif self.effect_type == "unlock":
+            player.has_key = True
+            print("Vous obtenez la clé du donjon !")
+
         else:
             print("item pas connue")

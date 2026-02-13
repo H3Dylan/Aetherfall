@@ -2,6 +2,7 @@ import random
 from Events.IGameEvent import IGameEvent
 from Core.GameStates import CombatState
 from Entities.EntityFactory import EntityFactory
+from Caracters.ItemDatabase import ItemFactory
 
 class RestEvent(IGameEvent):
     def trigger(self, engine):
@@ -41,8 +42,13 @@ class ChestEvent(IGameEvent):
     def trigger(self, engine):
         engine.notify_ui("Tu trouves un coffre...")
         if random.random() < 0.4:
+
+            if engine.player.inventory and any(item.name == "clé du donjon" for item in engine.player.inventory):
+                engine.notify_ui("Tu as déjà la clé du donjon, le coffre est vide.")
+                return
             engine.notify_ui("Tu obtiens la Clé du Donjon !")
             engine.player.has_key = True
+            engine.player.inventory.append(ItemFactory().create_item("keydungeon"))
         else:
             engine.notify_ui("Il est vide.")
 
