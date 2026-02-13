@@ -91,3 +91,13 @@ class Player:
         self.inventory.append(item)
         print(f"{item.name} ajouté à l'inventaire.")
         return True
+    
+    def get_save_data(self):
+        return {
+            "name": self.name,
+            "hp": self.hp,
+            "max_hp": self.max_hp,
+            "class_name": self.class_name,
+            "has_key": self.has_key,
+            "stats": self.stats
+        }

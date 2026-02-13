@@ -13,6 +13,7 @@ class ExplorationState:
         print("4. Quitter le jeu")
         print("5. affiche ton inventaire")
         print("6. ajouter un item, fais gaffe c'est de la triche")
+        print("7. SAUVEGARDER | 8. CHARGER | 9. Quitter")
         choice = input("Que voulez-vous faire ? > ")
 
         if choice == "1":
@@ -37,6 +38,12 @@ class ExplorationState:
             item_name = input("Nom de l'item à ajouter > ")
             fake_item = type('FakeItem', (object,), {'name': item_name})
             self.engine.player.add_to_inventory(fake_item)
+        elif choice == "7":
+            self.engine.save_game()
+        elif choice == "8":
+            self.engine.load_game()
+        elif choice == "9":
+            self.engine.running = False
         else:
             print("Choix invalide.")
 

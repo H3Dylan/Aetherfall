@@ -1,0 +1,18 @@
+{
+    "current_zone": "Donjon Noir",
+    "player_data": {
+        "name": "test",
+        "hp": 80,
+        "max_hp": 120,
+        "class_name": "Guerrier",
+        "has_key": true,
+        "stats": {
+            "ATK": 35,
+            "INT": 5,
+            "VIT": 6,
+            "DEF": 20,
+            "DEFM": 5,
+            "CRIT": 5
+        }
+    }
+}

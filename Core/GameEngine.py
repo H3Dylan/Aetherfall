@@ -64,64 +64,41 @@ class GameEngine:
 
     def save_game(self, filename="savegame.json"):
         if not self.player:
-            self.notify_ui("Impossible de sauvegarder : Aucun joueur.")
             return
 
         data = {
-            "quest_status": self.quest_status,
-            "current_zone_name": self.current_zone.name if self.current_zone else "Village",
-            "player": {
-                "name": self.player.name,
-                "hp": self.player.hp,
-                "max_hp": self.player.max_hp,
-                "class": getattr(self.player, "class_name", "Aventurier"),
-                "inventory_ids": [item.name for item in self.player.inventory] 
-            }
+            "current_zone": self.current_zone.name,
+            "player_data": self.player.get_save_data()
         }
         
         try:
             with open(filename, 'w') as f:
                 json.dump(data, f, indent=4)
-            self.notify_ui(f"Partie sauvegardée avec succès dans '{filename}'.")
+            self.notify_ui("💾 Partie sauvegardée !")
         except Exception as e:
-            self.notify_ui(f"Erreur critique lors de la sauvegarde : {e}")
+            self.notify_ui(f"Erreur sauvegarde : {e}")
 
     def load_game(self, filename="savegame.json"):
         if not os.path.exists(filename):
-            self.notify_ui("Aucun fichier de sauvegarde trouvé.")
+            self.notify_ui("Aucune sauvegarde trouvée.")
             return
 
         try:
             with open(filename, 'r') as f:
                 data = json.load(f)
 
-            self.quest_status = data["quest_status"]
+            p_data = data["player_data"]
+            self.player.name = p_data["name"]
+            self.player.hp = p_data["hp"]
+            self.player.max_hp = p_data["max_hp"]
+            self.player.class_name = p_data["class_name"]
+            self.player.has_key = p_data["has_key"]
+            self.player.stats = p_data["stats"]
 
-            p_data = data["player"]
-            if self.player:
-                self.player.name = p_data["name"]
-                self.player.hp = p_data["hp"]
-                self.player.max_hp = p_data["max_hp"]
-                self.notify_ui(f"Restauration de {self.player.name} (PV: {self.player.hp}) terminée.")
-            else:
-                self.notify_ui("Erreur: Impossible de charger le joueur (Builder manquant).")
-
-            saved_zone_name = data.get("current_zone_name")
-
-            found_zone = None
-            for key, zone in self.all_zones.items():
-                if zone.name == saved_zone_name:
-                    found_zone = zone
-                    break
-
-            if not found_zone and saved_zone_name in self.all_zones:
-                found_zone = self.all_zones[saved_zone_name]
-
-            if found_zone:
-                self.current_zone = found_zone
-                self.notify_ui(f"Retour dans la zone : {found_zone.name}")
-            else:
-                self.notify_ui(f"Zone sauvegardée '{saved_zone_name}' introuvable, on reste ici.")
-
+            zone_name = data["current_zone"]
+            if zone_name in self.all_zones:
+                self.current_zone = self.all_zones[zone_name]
+            
+            self.notify_ui(f"Partie chargée ! Bienvenue {self.player.name}")
         except Exception as e:
-            self.notify_ui(f"Fichier de sauvegarde corrompu : {e}")
+            self.notify_ui(f"Erreur chargement : {e}")
